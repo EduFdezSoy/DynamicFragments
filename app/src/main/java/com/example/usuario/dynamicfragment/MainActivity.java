@@ -27,9 +27,31 @@ public class MainActivity extends AppCompatActivity implements FragmentA.Fragmen
         }
     }
 
+    /**
+     * Método que cambia el texto y tamaño del TextView del fragmentB
+     * que se debe intercambiar y el fragmentA por el fragmentB
+     * y además pasar los datos (message, size) al fragmentB
+     *
+     * @param message
+     * @param size
+     */
     @Override
     public void onTextSizeChanged(String message, int size) {
 
+        Bundle bundle = new Bundle();
+        bundle.putString("message", message);
+        bundle.putInt("size", size);
+        //Patrón Factoría: es la propia clase quien crea un objeto
+        //del FragmentB, se pasa los argumentos a sí mismo y devuelve el objeto
+        fragmentb = FragmentB.newInstance(bundle);
+
+        //Comienza el cambio del FragmentA por el FragmentB
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(android.R.id.content, fragmentb);
+        //Se guardan las transacciones (no los fragments en concreto)
+        //FragmentA --> FragmentB
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     /**

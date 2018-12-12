@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class FragmentA extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragmenta, container, false);
-        if () {
+        if (rootView != null) {
             edMessage = rootView.findViewById(R.id.edtMessage);
             btSize = rootView.findViewById(R.id.btnSize);
             skSize = rootView.findViewById(R.id.skSize);
@@ -60,6 +61,13 @@ public class FragmentA extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btSize.setOnClickListener(new View.OnClickListener());
+        btSize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Hay que decir a la Activity que ha ocurrido un evento
+                listener.onTextSizeChanged(edMessage.getText().toString(), skSize.getProgress());
+            }
+        });
+        Log.d(TAG,"FragmentA:onViewCreated()");
     }
 }
