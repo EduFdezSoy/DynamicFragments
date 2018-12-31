@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements FragmentA.Fragmen
         {
             fragmenta = new FragmentA();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            //android.R.id.content es el id del FrameLayout de MainActivty
+            //android.R.id.content hace referencia al contenedor de la activity en la que estamos (por tanto no necesitamos ponerle un id)
             fragmentTransaction.add(android.R.id.content, fragmenta, FragmentA.TAG);
             fragmentTransaction.commit();
         }
